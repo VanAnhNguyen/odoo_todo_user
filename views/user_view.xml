@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <act_window id="action_todo_user"
+        name="To-do Task"
+        res_model="todo.task"
+        view_mode="tree,form" />
+
+        <menuitem id="menu_user"
+        name="To-Do User"
+        sequence="20"
+        action="action_todo_user"
+        />
+
+        <record id="view_tree_todo_task" model="ir.ui.view">
+            <field name="name">User Task Tree</field>
+            <field name="model">todo.task</field> <!-- tên model sử dụng là todo.task-->
+            <field name="arch" type="xml">
+                <tree editable="bottom" colors="gray:is_done==True">
+                    <field name="topic"/>
+                    <field name="birthday"/>
+                    <field name="is_done"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_form_todo_task" model="ir.ui.view">
+            <field name="name">To-do Task Form</field>
+            <field name="model">todo.task</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="do_toggle_done" type="object"
+                            string="Toggle Done" class="oe_highlight" />
+                        <!-- name là ten funtion sẽ xử lí action,
+                        type là chỉ đến nơi sẽ xửa lý
+                            type = object thì xử lí trong model,
+                            type = workflow thì xử lí trong workflow
+                         String là chữ hiển thị trên button
+                           class là về giao diện
+                        -->
+                        <button name="do_clear_done" type="object"
+                            string="Clear All Done" />
+                    </header>
+
+                     <sheet>
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="topic"/>
+                                <field name="name"/>
+                             </group>
+                            <group name="group_right">
+                                <field name="is_done"/>
+                                <field name="active" readonly="1" />
+                            </group>
+                        </group>
+                     </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>
